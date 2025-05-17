@@ -31,6 +31,7 @@
     padding: 10px 20px;
     border-radius: 10px;
     margin-bottom: 20px;
+    text-align: center;
 }
 .feature-card {
     /* background-color: white; */
@@ -124,11 +125,11 @@
     border: 1px solid #444;
 }
 
-.stButton>button {
+.stformSubmitButton, .stButton>button {
     background-color: #ff4b4b;
     color: white;
 }
 
-.stButton>button:hover {
+.stformSubmitButton>button:hover,.stButton>button:hover {
     background-color: #ffffff;
 }

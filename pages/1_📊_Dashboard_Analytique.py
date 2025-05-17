@@ -3,16 +3,17 @@ import pandas as pd
 import plotly.express as px
 import matplotlib.pyplot as plt
 import seaborn as sns
+from scipy import stats
 
 st.set_page_config(layout="wide", page_title="Analyse Cardiaque")
 st.title("📊 Dashboard d'Analyse Médicale")
 
 # Chargement des données (à adapter)
-df = pd.read_csv('./csv/cleaned_dataset.csv')
+df = pd.read_csv('./data/clean_data.csv')
 
 # Variables disponibles
-num_vars = ['resting bp s', 'cholesterol', 'max heart rate', 'oldpeak']
-cat_vars = ['sex', 'chest pain type', 'exercise angina', 'ST slope']
+num_vars = ['age', 'resting bp s', 'cholesterol', 'max heart rate', 'oldpeak']
+cat_vars = ['sex', 'chest pain type', 'fasting blood sugar', 'resting ecg', 'exercise angina', 'ST slope']
 
 # Charger le fichier CSS
 def load_css(file_name):
@@ -24,7 +25,7 @@ load_css("./css/dash.css")
 
 
 with st.sidebar:
-    st.header("**🔧 Paramètres**")
+    st.header("**⚙️ Paramètres**")
     selected_num = st.multiselect("Variables numériques", num_vars, default=num_vars[:2])
     selected_cat = st.selectbox("Variable catégorielle", cat_vars)
     st.download_button("📥 Exporter les données", df.to_csv(), "heartdisease.csv")

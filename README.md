@@ -1,2 +1,2 @@
 # cardiac_risq_streamlit
-Cette application utilise un modèle de Machine Learning pour prédire les risque cardiovasculaire
+Cette application utilise des modèles d'apprentissage automatique approfondus pour prédire des risques cardiovasculaires
