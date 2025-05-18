@@ -220,10 +220,8 @@ def show_input_form(feature_names):
         st.subheader("À propos")
         st.markdown("""
          Cette application a été développé dans le cadre d'un cours de Deep Learning.
-        Les modèles ont été entraîné sur un jeu de données de patients avec différentes caractéristiques cardiovasculaires.
-        
-        ⚠️ **Note importante:** Les résultats sont des estimations statistiques et ne remplacent pas un diagnostic médical professionnel.
-        """)
+        Les modèles ont été entraîné sur un jeu de données de patients avec différentes caractéristiques cardiovasculaires.""")
+        st.info("⚠️ **Note importante:** Les résultats sont des estimations statistiques et ne remplacent pas un diagnostic médical professionnel.")
     return None
     
 
