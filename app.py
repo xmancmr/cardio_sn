@@ -21,7 +21,7 @@ st.set_page_config(
 # Ajoutez cette option de debug
 if st.checkbox("Forcer le rechargement des modèles (debug)"):
     st.cache_resource.clear()
-    st.experimental_rerun()
+    st.rerun()
     
 st.error(f"Erreur complète : {traceback.format_exc()}")
 
