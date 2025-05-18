@@ -8,6 +8,8 @@ import tensorflow as tf
 from sklearn.preprocessing import StandardScaler
 from PIL import Image
 from scipy import stats
+import traceback
+
 
 # Configuration de la page
 st.set_page_config(
@@ -15,6 +17,13 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# Ajoutez cette option de debug
+if st.checkbox("Forcer le rechargement des modèles (debug)"):
+    st.cache_resource.clear()
+    st.experimental_rerun()
+    
+st.error(f"Erreur complète : {traceback.format_exc()}")
 
 # Style CSS personnalisé
 st.markdown("""
