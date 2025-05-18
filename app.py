@@ -17,11 +17,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
-# Ajoutez cette option de debug
-if st.checkbox("Forcer le rechargement des modèles (debug)"):
-    st.cache_resource.clear()
-    st.rerun()
     
 st.error(f"Erreur complète : {traceback.format_exc()}")
 
@@ -76,7 +71,8 @@ def load_models():
 
         # Chargement effectif
         dt_model = joblib.load(required_files[0])
-        ann_model = tf.keras.models.load_model(required_files[1])
+        # ann_model = tf.keras.models.load_model(required_files[1])
+        ann_model = './models/heart_ann_model.h5'
         scaler = joblib.load(required_files[2])
         feature_names = joblib.load(required_files[3])
 
@@ -427,11 +423,14 @@ def main():
                 if model_type == "Decision Tree":
                     prediction = models['dt'].predict(input_df)
                     proba = models['dt'].predict_proba(input_df)[0]
-                else:
-                    scaled_input = models['scaler'].transform(input_df)
-                    proba_ann = float(models['ann'].predict(scaled_input)[0][0])
-                    proba = [1 - proba_ann, proba_ann]
-                    prediction = [1] if proba_ann >= 0.5 else [0]
+                elif  model_type == "Réseau de Neurones (ANN)":
+                    prediction = models['ann'].predict(input_df)
+                    proba = models['ann'].predict_proba(input_df)[0]
+                # else:
+                #     scaled_input = models['scaler'].transform(input_df)
+                #     proba_ann = float(models['ann'].predict(scaled_input)[0][0])
+                #     proba = [1 - proba_ann, proba_ann]
+                #     prediction = [1] if proba_ann >= 0.5 else [0]
 
                 # Affichage des résultats
                 display_results(prediction, proba, model_type)
