@@ -8,8 +8,6 @@ import tensorflow as tf
 from sklearn.preprocessing import StandardScaler
 from PIL import Image
 from scipy import stats
-import traceback
-
 
 # Configuration de la page
 st.set_page_config(
@@ -17,36 +15,12 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-    
-st.error(f"Erreur complète : {traceback.format_exc()}")
 
-# Style CSS personnalisé
-st.markdown("""
-<style>
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 10px;
-    }
-    .stTabs [data-baseweb="tab"] {
-        padding: 8px 16px;
-        border-radius: 4px 4px 0 0;
-    }
-    .stTabs [aria-selected="true"] {
-        background-color: #f0f2f6;
-    }
-    .risk-high {
-        color: #dc3545;
-        font-weight: bold;
-    }
-    .risk-medium {
-        color: #ffc107;
-        font-weight: bold;
-    }
-    .risk-low {
-        color: #28a745;
-        font-weight: bold;
-    }
-</style>
-""", unsafe_allow_html=True)
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+local_css('./css/pre.css')
 
 # ---- 1. Chargement des modèles (version robuste) ----
 @st.cache_resource
@@ -110,6 +84,8 @@ def show_input_form(feature_names):
                 st.subheader("Paramètres cliniques")
                 trestbps = st.slider("Pression artérielle (mm Hg)", 90, 200, 120)
                 chol = st.slider("Cholestérol (mg/dl)", 100, 600, 200)
+                thalach = st.slider("Fréquence cardiaque maximale", 60, 220, 150, 
+                                   help="Fréquence cardiaque maximale atteinte (bpm)")
 
             with cols[1]:
                 st.subheader("Symptômes et tests")
@@ -165,6 +141,7 @@ def show_input_form(feature_names):
                         'chest pain type': cp,
                         'resting bp s': trestbps,
                         'cholesterol': chol,
+                        'max heart rate': thalach,
                         'fasting blood sugar': 1 if fbs else 0,
                         'resting ecg': restecg,
                         'exercise angina': 1 if exang else 0,
@@ -230,6 +207,7 @@ def show_input_form(feature_names):
               - 3: Asymptomatique
             - **Pression artérielle**: Pression au repos en mm Hg
             - **Cholestérol**: Niveau en mg/dl
+            - **Fréquence cardiaque max**: Fréquence cardiaque maximale atteinte (bpm)
             """)
 
     return input_df  # Retourne None si non soumis, sinon le DataFrame
@@ -412,10 +390,6 @@ def main():
 
     # Prédiction si données soumises
     if input_df is not None:
-        if input_df is None:
-             st.error("Erreur : aucune donnée d'entrée à analyser. Veuillez remplir et soumettre le formulaire.")
-             st.stop()
-        scaled_input = models['scaler'].transform(input_df)
         try:
             # Debug: Afficher les données d'entrée
             st.write("## Données analysées")
@@ -426,7 +400,6 @@ def main():
                 if model_type == "Decision Tree":
                     prediction = models['dt'].predict(input_df)
                     proba = models['dt'].predict_proba(input_df)[0]
-                
                 else:
                     scaled_input = models['scaler'].transform(input_df)
                     proba_ann = float(models['ann'].predict(scaled_input)[0][0])
