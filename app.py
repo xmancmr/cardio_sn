@@ -1,4 +1,3 @@
-# app.py - Application Streamlit complète avec les deux modèles
 import streamlit as st
 import joblib
 import pandas as pd
