@@ -412,6 +412,10 @@ def main():
 
     # Prédiction si données soumises
     if input_df is not None:
+        if input_df is None:
+             st.error("Erreur : aucune donnée d'entrée à analyser. Veuillez remplir et soumettre le formulaire.")
+             st.stop()
+        scaled_input = models['scaler'].transform(input_df)
         try:
             # Debug: Afficher les données d'entrée
             st.write("## Données analysées")
