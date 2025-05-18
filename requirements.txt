@@ -1,6 +1,7 @@
 plotly
 matplotlib
 seaborn
+tensorflow
 scikit-learn
 numpy
 pandas
