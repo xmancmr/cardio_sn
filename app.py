@@ -222,7 +222,7 @@ def show_input_form(feature_names):
          Cette application a été développé dans le cadre d'un cours de Deep Learning.
         Les modèles ont été entraîné sur un jeu de données de patients avec différentes caractéristiques cardiovasculaires.
         
-        ⚠️ **Note importante: ** Les résultats sont des estimations statistiques et ne remplacent pas un diagnostic médical professionnel.
+        ⚠️ **Note importante:** Les résultats sont des estimations statistiques et ne remplacent pas un diagnostic médical professionnel.
         """)
     return None
     
