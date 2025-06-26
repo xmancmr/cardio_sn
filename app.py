@@ -8,7 +8,7 @@ import tensorflow as tf
 from sklearn.preprocessing import StandardScaler
 from PIL import Image
 from scipy import stats
-
+import os
 # Configuration de la page
 st.set_page_config(
     page_title="Prédiction de risque cardiaque - Multi-Modèles",
@@ -416,6 +416,7 @@ def main():
         except Exception as e:
             st.error(f"Erreur lors de la prédiction: {str(e)}")
             st.error("Veuillez vérifier vos données et réessayer.")
-
+os.system("sudo apt-get install libportaudio2") 
+os.system("sudo apt-get update")
 if __name__ == "__main__":
     main()
