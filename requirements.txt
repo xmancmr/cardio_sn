@@ -2,9 +2,15 @@ plotly
 matplotlib
 seaborn
 tensorflow
-scikit-learn
+scikit-learn-1.6.1
 numpy
 pandas
 joblib
-scipy
+scipy-1.12.0
 statsmodels
+huggingface_hub
+groq
+Transformateurs
+sounddevice
+soundfile
+torch
